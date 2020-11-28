@@ -13,5 +13,8 @@ routes.get('/estabelecimentos/:id', EstabelecimentosController.show)
 routes.post('/adms', AdmsController.create)
 routes.get('/adms', AdmsController.index)
 routes.get('/adms/:id', AdmsController.show)
+routes.delete('/adms/:id', AdmsController.delete)
+routes.delete('/estabelecimentos/:id', EstabelecimentosController.delete)
+//routes.put('/estabelecimentos/save/:id', EstabelecimentosController.save)
 
 export default routes

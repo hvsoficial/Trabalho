@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 import {getRepository} from 'typeorm';
-import Adm from '../models/Adm';
+import Adms from '../models/Adm';
 import admViews from '../view/adms_view';
 import * as Yup from 'yup';
 
 export default{
     async index(request: Request, response: Response){
-        const admsRepository = getRepository(Adm);
+        const admsRepository = getRepository(Adms);
 
         const adms = await admsRepository.find();
 
@@ -16,12 +16,20 @@ export default{
     async show(request: Request, response: Response){
         const {id} = request.params;
 
-        const admsRepository = getRepository(Adm);
+        const admsRepository = getRepository(Adms);
 
         const adm = await admsRepository.findOneOrFail(id);
 
         return response.json(admViews.render(adm));
     },
+	async delete(request: Request, response: Response) {
+		const { id } = request.params
+		const admsRepository = getRepository(Adms)
+
+	    await admsRepository.delete(id)
+
+		return response.json('arquivo deletado')
+	},
 
     async create(request: Request, response: Response){
         const{
@@ -32,7 +40,7 @@ export default{
      
          } = request.body;
      
-         const admsRepository = getRepository(Adm);
+         const admsRepository = getRepository(Adms);
 
          const data = {
             name,
